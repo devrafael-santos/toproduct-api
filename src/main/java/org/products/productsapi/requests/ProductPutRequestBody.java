@@ -1,11 +1,14 @@
 package org.products.productsapi.requests;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
+@Builder
 public class ProductPutRequestBody {
 
     @NotEmpty(message = "The id of this product cannot be empty")
@@ -16,8 +19,8 @@ public class ProductPutRequestBody {
 
     private String description;
 
-    @NotEmpty(message = "The price of this product cannot be empty")
+    @NotNull(message = "The price of this product cannot be empty")
     private Double price;
 
-    private String available;
+    private Boolean available;
 }
