@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mysql
+    container_name: product-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - toproduct_data:/var/lib/toproduct-mysql
+
+volumes:
+  toproduct_data:
