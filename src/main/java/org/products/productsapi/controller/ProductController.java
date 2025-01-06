@@ -10,7 +10,6 @@ import org.products.productsapi.domain.Product;
 import org.products.productsapi.requests.ProductPostRequestBody;
 import org.products.productsapi.requests.ProductPutRequestBody;
 import org.products.productsapi.service.ProductService;
-import org.products.productsapi.util.DateUtil;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @RestController
@@ -31,7 +29,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    @CrossOrigin(origins = {"https://toproducts.pages.dev/", "https://toproducts.pages.dev/"})
+    @CrossOrigin(origins = {"https://toproducts.pages.dev/", "https://toproduct-app.pages.dev/"})
     @PageableAsQueryParam
     @Operation(summary = "List all Products paginated",
             description = "Returns a page of Products with default size 20. You can change it.",
@@ -51,7 +49,7 @@ public class ProductController {
     }
 
     @PostMapping
-    @CrossOrigin(origins = {"http://127.0.0.1:5500", "https://toproducts.pages.dev/"})
+    @CrossOrigin(origins = {"http://127.0.0.1:5500", "https://toproduct-app.pages.dev/"})
     @Operation(summary = "Save a Product",
             description = "Returns a new Product.",
             tags = {"product"})
