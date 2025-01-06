@@ -4,9 +4,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/product?createDatabaseIfNotExist=true
+    url: jdbc:mysql://mysql.railway.internal:3306/product?createDatabaseIfNotExist=true
     username: root
-    password: root
+    password: UsugGAOalKUdqHLULjrJWFORBCtsJEKg
   jpa:
     hibernate:
       ddl-auto: update
