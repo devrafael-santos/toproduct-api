@@ -4,7 +4,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://${PROD_DB_HOST:localhost}:${PROD_DB_PORT:3306}/${PROD_DB_NAME:mysql}
+    url: jdbc:mysql://${PROD_DB_HOST:localhost}:${PROD_DB_PORT:3306}/${PROD_DB_NAME:product}
     username: ${PROD_DB_USERNAME:root}
     password: ${PROD_DB_PASSWORD:root}
   jpa:
