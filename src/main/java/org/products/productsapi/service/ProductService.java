@@ -2,15 +2,15 @@ package org.products.productsapi.service;
 
 import lombok.RequiredArgsConstructor;
 import org.products.productsapi.domain.Product;
+import org.products.productsapi.exception.BadRequestException;
 import org.products.productsapi.mapper.ProductMapper;
 import org.products.productsapi.repository.ProductRepository;
 import org.products.productsapi.requests.ProductPostRequestBody;
 import org.products.productsapi.requests.ProductPutRequestBody;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -26,9 +26,10 @@ public class ProductService {
 
     public Product findByIdOrThrowBadRequestException(UUID id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+                .orElseThrow(() -> new BadRequestException("Product not found"));
     }
 
+    @Transactional
     public Product save(ProductPostRequestBody productPostRequestBody) {
         return productRepository.save(ProductMapper.INSTANCE.toProduct(productPostRequestBody));
     }
@@ -37,6 +38,7 @@ public class ProductService {
         productRepository.delete(findByIdOrThrowBadRequestException(id));
     }
 
+    @Transactional
     public void update(ProductPutRequestBody productPutRequestBody) {
         Product savedProduct = findByIdOrThrowBadRequestException(productPutRequestBody.getId());
 
