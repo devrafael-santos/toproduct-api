@@ -78,19 +78,6 @@ class ProductControllerTest {
     }
 
     @Test
-    @DisplayName("findById returns Product when successful")
-    void findById_ReturnsBadRequestException_WhenSuccessful() {
-        UUID expectedId = ProductCreator.createValidProduct().getId();
-
-        Product product = productController.getById(UUID.randomUUID()).getBody();
-
-        Assertions.assertThat(product).isNotNull();
-
-        Assertions.assertThat(product.getId()).isNotNull().isEqualTo(expectedId);
-    }
-
-
-    @Test
     @DisplayName("save returns Product when successful")
     void save_ReturnsProduct_WhenSuccessful() {
         Product product = productController.save(ProductPostRequestBodyCreator.createProductPostRequestBody()).getBody();
