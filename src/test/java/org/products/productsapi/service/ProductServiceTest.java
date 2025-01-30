@@ -63,8 +63,8 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("findById returns Product when successful")
-    void findById_ReturnsProduct_WhenSuccessful() {
+    @DisplayName("findByIdOrThrowBadRequestException returns Product when successful")
+    void findByIdOrThrowBadRequestException_ReturnsProduct_WhenSuccessful() {
         UUID expectedId = ProductCreator.createValidProduct().getId();
 
         Product product = productService.findByIdOrThrowBadRequestException(UUID.randomUUID());
@@ -75,15 +75,12 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("findById returns Product when successful")
-    void findById_ReturnsBadRequestException_WhenSuccessful() {
-        UUID expectedId = ProductCreator.createValidProduct().getId();
+    @DisplayName("findByIdOrThrowBadRequestException throws ReturnsBadRequestException when successful")
+    void findByIdOrThrowBadRequestException_ThrowsBadRequestException_WhenProductIsNotFound() {
+        BDDMockito.when(productRepositoryMock.findById(ArgumentMatchers.any()))
+                .thenReturn(Optional.empty());
 
-        Product product = productService.findByIdOrThrowBadRequestException(UUID.randomUUID());
-
-        Assertions.assertThat(product).isNotNull();
-
-        Assertions.assertThat(product.getId()).isNotNull().isEqualTo(expectedId);
+        Assertions.assertThatThrownBy(() -> productService.findByIdOrThrowBadRequestException(UUID.randomUUID()));
     }
 
 
