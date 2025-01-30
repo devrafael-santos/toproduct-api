@@ -32,6 +32,6 @@ public class Product {
     private Double price;
 
     @Column(nullable = false)
-    private Boolean available = true; // Define um valor padrão
+    private Boolean available = true;
 
 }
