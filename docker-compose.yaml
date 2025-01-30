@@ -3,6 +3,7 @@ services:
     image: mysql
     container_name: product-mysql
     environment:
+      MYSQL_DATABASE: product
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"

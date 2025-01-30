@@ -29,7 +29,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    @CrossOrigin(origins = {"https://toproducts.pages.dev/", "https://toproduct-app.pages.dev/"})
+    @CrossOrigin(origins = {"http://127.0.0.1:5500", "https://toproduct-app.pages.dev/"})
     @PageableAsQueryParam
     @Operation(summary = "List all Products paginated",
             description = "Returns a page of Products with default size 20. You can change it.",
