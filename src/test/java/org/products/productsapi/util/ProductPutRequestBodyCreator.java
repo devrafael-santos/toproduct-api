@@ -1,7 +1,6 @@
 package org.products.productsapi.util;
 
 import org.products.productsapi.domain.Product;
-import org.products.productsapi.requests.ProductPostRequestBody;
 import org.products.productsapi.requests.ProductPutRequestBody;
 
 public class ProductPutRequestBodyCreator {
