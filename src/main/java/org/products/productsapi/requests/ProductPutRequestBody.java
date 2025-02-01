@@ -13,7 +13,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ProductPutRequestBody {
 
-    @NotNull(message = "The id of this product cannot be empty")
     private UUID id;
 
     @NotEmpty(message = "The name of this product cannot be empty")

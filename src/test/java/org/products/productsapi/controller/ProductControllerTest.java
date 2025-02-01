@@ -47,7 +47,8 @@ class ProductControllerTest {
         BDDMockito.when(productServiceMock.save(ArgumentMatchers.any(ProductPostRequestBody.class)))
                 .thenReturn(ProductCreator.createValidProduct());
 
-        BDDMockito.doNothing().when(productServiceMock).update(ArgumentMatchers.any(ProductPutRequestBody.class));
+        BDDMockito.doNothing().when(productServiceMock).update(ArgumentMatchers.any(UUID.class),
+                ArgumentMatchers.any(ProductPutRequestBody.class));
 
         BDDMockito.doNothing().when(productServiceMock).delete(ArgumentMatchers.any());
     }
@@ -88,7 +89,9 @@ class ProductControllerTest {
     @Test
     @DisplayName("update updates Product when successful")
     void update_UpdatesProduct_WhenSuccessful() {
-        ResponseEntity<Void> entity =  productController.update(ProductPutRequestBodyCreator.createProductPutRequestBody());
+        ResponseEntity<Void> entity = productController.update(
+                UUID.randomUUID(),
+                ProductPutRequestBodyCreator.createProductPutRequestBody());
 
         Assertions.assertThat(entity).isNotNull();
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
@@ -97,7 +100,7 @@ class ProductControllerTest {
     @Test
     @DisplayName("delete removes Product when successful")
     void delete_RemovesProduct_WhenSuccessful() {
-        ResponseEntity<Void> entity =  productController.delete(UUID.randomUUID());
+        ResponseEntity<Void> entity = productController.delete(UUID.randomUUID());
 
         Assertions.assertThat(entity).isNotNull();
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);

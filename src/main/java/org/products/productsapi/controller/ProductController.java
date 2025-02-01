@@ -64,14 +64,16 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping
+    @PutMapping(path = "/{id}")
     @Operation(summary = "Update one Product by body", tags = {"product"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Successful operation"),
             @ApiResponse(responseCode = "400", description = "When Product does not exists in the database")
     })
-    public ResponseEntity<Void> update(@RequestBody @Validated ProductPutRequestBody productPutRequestBody) {
-        productService.update(productPutRequestBody);
+    public ResponseEntity<Void> update(@PathVariable UUID id,
+    @RequestBody @Validated ProductPutRequestBody productPutRequestBody) {
+
+        productService.update(id, productPutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

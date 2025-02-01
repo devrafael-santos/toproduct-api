@@ -112,10 +112,10 @@ public class ProductControllerIT {
     void update_UpdatesProduct_WhenSuccessful() {
         Product savedProduct = productRepository.save(ProductCreator.createProductToBeSaved());
 
-        savedProduct.setName("New name");
+        Product newProduct = ProductCreator.createProductToBeSaved();
 
-        ResponseEntity<Void> productResponseEntity = testRestTemplate.exchange("/products", HttpMethod.PUT,
-                new HttpEntity<>(savedProduct), Void.class);
+        ResponseEntity<Void> productResponseEntity = testRestTemplate.exchange("/products/{id}", HttpMethod.PUT,
+                new HttpEntity<>(newProduct), Void.class, savedProduct.getId());
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, productResponseEntity.getStatusCode());
     }
@@ -123,12 +123,10 @@ public class ProductControllerIT {
     @Test
     @DisplayName("update updates Product when successful")
     void update_Returns400_WhenProductIsNotFound() {
-        Product savedProduct = productRepository.save(ProductCreator.createProductToBeSaved());
+        Product newProduct = ProductCreator.createProductToBeSaved();
 
-        savedProduct.setId(UUID.randomUUID());
-
-        ResponseEntity<Void> productResponseEntity = testRestTemplate.exchange("/products", HttpMethod.PUT,
-                new HttpEntity<>(savedProduct), Void.class);
+        ResponseEntity<Void> productResponseEntity = testRestTemplate.exchange("/products/{id}", HttpMethod.PUT,
+                new HttpEntity<>(newProduct), Void.class, UUID.randomUUID());
 
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, productResponseEntity.getStatusCode());
     }
