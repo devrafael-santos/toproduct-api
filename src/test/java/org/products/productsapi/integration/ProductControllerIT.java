@@ -8,7 +8,6 @@ import org.products.productsapi.repository.ProductRepository;
 import org.products.productsapi.requests.ProductPostRequestBody;
 import org.products.productsapi.util.ProductCreator;
 import org.products.productsapi.util.ProductPostRequestBodyCreator;
-import org.products.productsapi.util.ProductPutRequestBodyCreator;
 import org.products.productsapi.wrapper.PageableResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -105,6 +104,32 @@ public class ProductControllerIT {
                 null, Void.class, randomUUID);
 
         Assertions.assertNull(productResponseEntity.getBody());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, productResponseEntity.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("update updates Product when successful")
+    void update_UpdatesProduct_WhenSuccessful() {
+        Product savedProduct = productRepository.save(ProductCreator.createProductToBeSaved());
+
+        savedProduct.setName("New name");
+
+        ResponseEntity<Void> productResponseEntity = testRestTemplate.exchange("/products", HttpMethod.PUT,
+                new HttpEntity<>(savedProduct), Void.class);
+
+        Assertions.assertEquals(HttpStatus.NO_CONTENT, productResponseEntity.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("update updates Product when successful")
+    void update_Returns400_WhenProductIsNotFound() {
+        Product savedProduct = productRepository.save(ProductCreator.createProductToBeSaved());
+
+        savedProduct.setId(UUID.randomUUID());
+
+        ResponseEntity<Void> productResponseEntity = testRestTemplate.exchange("/products", HttpMethod.PUT,
+                new HttpEntity<>(savedProduct), Void.class);
+
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, productResponseEntity.getStatusCode());
     }
 }
