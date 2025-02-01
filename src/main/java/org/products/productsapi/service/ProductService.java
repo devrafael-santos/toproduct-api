@@ -39,8 +39,8 @@ public class ProductService {
     }
 
     @Transactional
-    public void update(ProductPutRequestBody productPutRequestBody) {
-        Product savedProduct = findByIdOrThrowBadRequestException(productPutRequestBody.getId());
+    public void update(UUID id, ProductPutRequestBody productPutRequestBody) {
+        Product savedProduct = findByIdOrThrowBadRequestException(id);
 
         Product product = ProductMapper.INSTANCE.toProduct(productPutRequestBody);
         product.setId(savedProduct.getId());
