@@ -98,7 +98,7 @@ class ProductServiceTest {
     @DisplayName("update updates Product when successful")
     void update_UpdatesProduct_WhenSuccessful() {
         Assertions.assertThatCode(() -> productService
-                        .update(ProductPutRequestBodyCreator.createProductPutRequestBody()))
+                        .update(UUID.randomUUID(), ProductPutRequestBodyCreator.createProductPutRequestBody()))
                 .doesNotThrowAnyException();
     }
 
@@ -106,11 +106,12 @@ class ProductServiceTest {
     @DisplayName("update throws ReturnsBadRequestException when Product is not found")
     void update_ThrowsBadRequestException_WhenProductIsNotFound() {
         BDDMockito.when(productRepositoryMock.findById(ArgumentMatchers.any()))
-                        .thenReturn(Optional.empty());
+                .thenReturn(Optional.empty());
 
         Assertions.assertThatThrownBy(() -> productService
-                .update(ProductPutRequestBodyCreator.createProductPutRequestBody()))
-                .isInstanceOf(BadRequestException.class);;
+                        .update(UUID.randomUUID(), ProductPutRequestBodyCreator.createProductPutRequestBody()))
+                .isInstanceOf(BadRequestException.class);
+        ;
     }
 
     @Test
@@ -124,7 +125,7 @@ class ProductServiceTest {
     @DisplayName("delete throws ReturnsBadRequestException when Product is not found")
     void delete_ThrowsBadRequestException_WhenProductIsNotFound() {
         BDDMockito.when(productRepositoryMock.findById(ArgumentMatchers.any()))
-                        .thenReturn(Optional.empty());
+                .thenReturn(Optional.empty());
 
         Assertions.assertThatThrownBy(() -> productService.delete(UUID.randomUUID()))
                 .isInstanceOf(BadRequestException.class);
