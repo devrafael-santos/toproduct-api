@@ -107,5 +107,4 @@ public class ProductControllerIT {
         Assertions.assertNull(productResponseEntity.getBody());
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, productResponseEntity.getStatusCode());
     }
-
 }
